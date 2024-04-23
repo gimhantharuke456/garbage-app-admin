@@ -5,6 +5,7 @@ const state = proxy({
   users: [],
   riders: [],
   passengers: [],
+  requests: [],
 });
 
 export default state;

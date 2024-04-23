@@ -2,9 +2,11 @@ import React, { useEffect, useState } from "react";
 import { Layout, Menu, Spin } from "antd";
 import state from "../Store";
 import Riders from "../Components/Riders";
-import Passangers from "../Components/Passangers";
 import { useSnapshot } from "valtio";
 import { fetchUsers } from "../Services/UserService";
+import Schedules from "../Components/Schedules";
+import ScheduleManager from "../Components/ScheduleManager";
+import { Reviews } from "../Components/Reviews";
 
 const { Header, Content, Footer, Sider } = Layout;
 
@@ -62,6 +64,30 @@ const Dashboard = () => {
           >
             Riders
           </Menu.Item>
+          <Menu.Item
+            onClick={() => {
+              onDashboardItemClicked(3);
+            }}
+            key="2"
+          >
+            Requests
+          </Menu.Item>
+          <Menu.Item
+            onClick={() => {
+              onDashboardItemClicked(2);
+            }}
+            key="3"
+          >
+            Schedules
+          </Menu.Item>
+          <Menu.Item
+            onClick={() => {
+              onDashboardItemClicked(4);
+            }}
+            key="4"
+          >
+            Reviews
+          </Menu.Item>
         </Menu>
       </Sider>
       <Layout className="site-layout">
@@ -71,9 +97,10 @@ const Dashboard = () => {
             {snap.activeIndex === 1 && (
               <Riders fetchUsersFromDb={fetchUsersFromDb} />
             )}
-            {snap.activeIndex === 2 && (
-              <Passangers fetchUsersFromDb={fetchUsersFromDb} />
-            )}
+
+            {snap.activeIndex === 2 && <ScheduleManager />}
+            {snap.activeIndex === 3 && <Schedules />}
+            {snap.activeIndex === 4 && <Reviews />}
           </div>
         </Content>
         <Footer style={{ textAlign: "center" }}>Ride Share Admin</Footer>
