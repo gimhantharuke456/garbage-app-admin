@@ -29,11 +29,7 @@ const Schedules = () => {
       dataIndex: "garbageType",
       key: "garbageType",
     },
-    {
-      title: "Status",
-      dataIndex: "status",
-      key: "status",
-    },
+
     {
       title: "Vehicle",
       dataIndex: "vehicleType",
