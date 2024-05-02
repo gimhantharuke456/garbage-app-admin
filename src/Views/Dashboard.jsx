@@ -7,6 +7,7 @@ import { fetchUsers } from "../Services/UserService";
 import Schedules from "../Components/Schedules";
 import ScheduleManager from "../Components/ScheduleManager";
 import { Reviews } from "../Components/Reviews";
+import NormalSchedules from "../Components/NormalSchedules";
 
 const { Header, Content, Footer, Sider } = Layout;
 
@@ -78,7 +79,7 @@ const Dashboard = () => {
             }}
             key="3"
           >
-            Schedules
+            Emergency Schedules
           </Menu.Item>
           <Menu.Item
             onClick={() => {
@@ -87,6 +88,14 @@ const Dashboard = () => {
             key="4"
           >
             Reviews
+          </Menu.Item>
+          <Menu.Item
+            onClick={() => {
+              onDashboardItemClicked(5);
+            }}
+            key="5"
+          >
+            Schedules
           </Menu.Item>
         </Menu>
       </Sider>
@@ -101,6 +110,7 @@ const Dashboard = () => {
             {snap.activeIndex === 2 && <ScheduleManager />}
             {snap.activeIndex === 3 && <Schedules />}
             {snap.activeIndex === 4 && <Reviews />}
+            {snap.activeIndex === 5 && <NormalSchedules />}
           </div>
         </Content>
         <Footer style={{ textAlign: "center" }}>Ride Share Admin</Footer>
