@@ -9,6 +9,7 @@ import {
   TimePicker,
   message,
   Select,
+  Row,
 } from "antd";
 import moment from "moment";
 import {
@@ -19,7 +20,8 @@ import {
 } from "../Services/NormalSchedules";
 import { useSnapshot } from "valtio";
 import state from "../Store";
-import { render } from "@testing-library/react";
+import jsPDF from "jspdf";
+import "jspdf-autotable";
 import ShowUserDetails from "./ShowUserDetails";
 
 const { Option } = Select;
@@ -43,6 +45,34 @@ const NormalSchedules = () => {
     } catch (error) {
       console.error("Failed to fetch schedules:", error);
     }
+  };
+  const generateReport = (schedules) => {
+    // Create a new jsPDF instance
+    const doc = new jsPDF();
+
+    // Define columns for the table
+    const columns = [
+      { title: "Rider Details", dataKey: "riderDetails" },
+      { title: "Date", dataKey: "date" },
+      { title: "Time", dataKey: "time" },
+      { title: "Location", dataKey: "location" },
+      { title: "Status", dataKey: "status" },
+    ];
+
+    // Map schedule data to table rows
+    const rows = schedules.map((schedule) => ({
+      riderDetails: `${schedule.riderId}`,
+      date: schedule.date,
+      time: schedule.time,
+      location: schedule.location,
+      status: schedule.status,
+    }));
+
+    // Add table to the PDF document
+    doc.autoTable(columns, rows, { startY: 20 });
+
+    // Save the PDF with a name
+    doc.save("schedule_report.pdf");
   };
 
   const handleAdd = () => {
@@ -157,9 +187,15 @@ const NormalSchedules = () => {
 
   return (
     <div>
-      <Button type="primary" onClick={handleAdd}>
-        Add Schedule
-      </Button>
+      <Row justify={"space-between"}>
+        <Button type="primary" onClick={handleAdd}>
+          Add Schedule
+        </Button>
+        <Button type="dashed" onClick={() => generateReport(schedules)}>
+          Generate Report
+        </Button>
+      </Row>
+
       <Table dataSource={schedules} columns={columns} rowKey="id" />
 
       <Modal
