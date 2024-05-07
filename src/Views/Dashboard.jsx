@@ -8,6 +8,7 @@ import Schedules from "../Components/Schedules";
 import ScheduleManager from "../Components/ScheduleManager";
 import { Reviews } from "../Components/Reviews";
 import NormalSchedules from "../Components/NormalSchedules";
+import Complains from "../Components/Complains";
 
 const { Header, Content, Footer, Sider } = Layout;
 
@@ -97,6 +98,14 @@ const Dashboard = () => {
           >
             Schedules
           </Menu.Item>
+          <Menu.Item
+            onClick={() => {
+              onDashboardItemClicked(6);
+            }}
+            key="6"
+          >
+            Complains
+          </Menu.Item>
         </Menu>
       </Sider>
       <Layout className="site-layout">
@@ -111,6 +120,7 @@ const Dashboard = () => {
             {snap.activeIndex === 3 && <Schedules />}
             {snap.activeIndex === 4 && <Reviews />}
             {snap.activeIndex === 5 && <NormalSchedules />}
+            {snap.activeIndex === 6 && <Complains />}
           </div>
         </Content>
         <Footer style={{ textAlign: "center" }}>Ride Share Admin</Footer>
